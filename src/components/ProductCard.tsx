@@ -52,7 +52,7 @@ export const ProductCard = ({
 
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-2xl font-bold text-primary">${price.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-primary">₹{price.toFixed(2)}</p>
               <p className="text-xs text-muted-foreground">{store}</p>
             </div>
             {rating && (
