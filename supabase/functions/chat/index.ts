@@ -38,10 +38,17 @@ serve(async (req) => {
       console.error('Error fetching products:', productsError);
     }
 
+    // Convert USD prices to INR (1 USD = 87 INR)
+    const USD_TO_INR = 87;
+    const productsInINR = products?.map(p => ({
+      ...p,
+      price_inr: Math.round(p.price * USD_TO_INR)
+    }));
+
     const systemPrompt = `You are ShopBot, an intelligent e-commerce shopping assistant that helps users find the best deals on products in India. 
 
 You have access to a product database with the following products:
-${products?.map(p => `- ${p.name}: ₹${p.price} at ${p.store} (Rating: ${p.rating}/5)`).join('\n')}
+${productsInINR?.map(p => `- ${p.name}: ₹${p.price_inr} at ${p.store} (Rating: ${p.rating}/5)`).join('\n')}
 
 When users ask about products:
 1. Search through the available products and provide relevant matches
